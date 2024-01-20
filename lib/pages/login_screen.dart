@@ -8,7 +8,7 @@ import 'package:real_estate_auction_system/components/rounded_input.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-  final String routeName = "/";
+  static const String routeName = "/";
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen>
                       width: size.width,
                       height: defaultLoginSize,
                       color: Theme.of(context).colorScheme.background,
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -102,9 +102,22 @@ class _LoginScreenState extends State<LoginScreen>
                               fontSize: 24,
                             ),
                           ),
-                          SizedBox(
-                            height: 40,
-                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, "/main");
+                            },
+                            child: Container(
+                            child: Text(
+                              'Home',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                                color: Colors.blueAccent
+                              ),
+                            ),
+                            ),
+                            ),
+                          
                           RoundedInput(
                             icon: Icons.mail,
                             hint: "Email",
@@ -166,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen>
                               icon: Icons.face_2_rounded, hint: "Name"),
                           RoundedPassWordInput(
                               hint: "Password", icon: Icons.lock),
-                          RoundedButton(title: "Sign UP"),
+                          RoundedButton(title: "Sign Up"),
                         ],
                       ),
                     ),
