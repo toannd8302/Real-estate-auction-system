@@ -1,243 +1,188 @@
-import 'dart:ffi' as ffi;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:real_estate_auction_system/components/register_form.dart';
-import 'package:real_estate_auction_system/components/roudned_password.dart';
-
-import 'package:real_estate_auction_system/components/rounded_button.dart';
-import 'package:real_estate_auction_system/components/rounded_input.dart';
+import 'package:real_estate_auction_system/core/constants/color_constants.dart';
+import 'package:real_estate_auction_system/widgets/custom_scafforld.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-  static const String routeName = "/";
+  static String routeName = "/login";
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
-    with SingleTickerProviderStateMixin {
-  bool isLogin = true;
-  late Animation<double> containerSize;
-  late AnimationController animationController;
-  Duration animationDuration = const Duration(milliseconds: 270);
-  int _activeStepIndex = 0;
-
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController pass = TextEditingController();
-  TextEditingController address = TextEditingController();
-  TextEditingController pincode = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    animationController =
-        AnimationController(vsync: this, duration: animationDuration);
-    name = TextEditingController();
-    email = TextEditingController();
-    pass = TextEditingController();
-    address = TextEditingController();
-    pincode = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    name.dispose();
-    email.dispose();
-    pass.dispose();
-    address.dispose();
-    pincode.dispose();
-    super.dispose();
-  }
+class _LoginScreenState extends State<LoginScreen> {
+  final _formSignInKey = GlobalKey<FormState>();
+  bool rememberPassword = true;
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    //Todo: get keyboard height
-    double viewInset = MediaQuery.of(context).viewInsets.bottom;
-    double defaultLoginSize = size.height - (size.height * 0.2);
-    double defaultRegisterSize = size.height - (size.height * 0.1);
-    containerSize =
-        Tween<double>(begin: size.height * 0.2, end: defaultLoginSize)
-            .animate(CurvedAnimation(
-      parent: animationController,
-      curve: Curves.linear,
-    ));
-
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.onBackground,
-      body: Stack(
+    return CustomScafford(
+      child: Column(
         children: [
-          AnimatedOpacity(
-            opacity: isLogin ? 0.0 : 1.0,
-            duration: animationDuration,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                width: size.width,
-                height: size.height * 0.1,
-                alignment: Alignment.bottomCenter,
-                color: Theme.of(context).colorScheme.onBackground,
-                child: IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () {
-                    animationController.reverse();
-                    setState(() {
-                      isLogin = !isLogin;
-                    });
-                  },
-                ),
+          Expanded(
+              flex: 1,
+              child: SizedBox(
+                height: 10,
+              )),
+          Expanded(
+            flex: 7,
+            child: Container(
+              padding: EdgeInsets.fromLTRB(25, 50, 25, 20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50)),
               ),
-            ),
-          ),
-          AnimatedOpacity(
-            opacity: isLogin ? 1.0 : 0.0,
-            duration: animationDuration * 4,
-            child: Visibility(
-              visible: isLogin,
-              child: Align(
-                alignment: Alignment.center,
-                child: SingleChildScrollView(
-                  child: Container(
-                    width: size.width,
-                    height: defaultLoginSize,
-                    color: Theme.of(context).colorScheme.background,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Welcome Back',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                          ),
+              child: Form(
+                key: _formSignInKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Login",
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: lightColorScheme.primary,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        label: const Text("Username"),
+                        hintText: "Enter Username",
+                        hintStyle: TextStyle(
+                          color: Colors.black26,
                         ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, "/main");
+                        //icon: Icon(Icons.email),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your username';
+                        }
+                        // else if (value.length < 6 || !value.contains('@')) {
+                        //   _nameInValidated = true;
+                        // }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      obscureText: true,
+                      obscuringCharacter: '*',
+                      decoration: InputDecoration(
+                        label: const Text("Password"),
+
+                        hintText: "Enter password",
+                        hintStyle: const TextStyle(
+                          color: Colors.black26,
+                        ),
+                        //icon: Icon(Icons.email),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        // else if (value.length < 6 || !value.contains('@')) {
+                        //   _nameInValidated = true;
+                        // }
+                        return null;
+                      },
+                    ),
+                    Row(children: [
+                      Checkbox(
+                        value: rememberPassword,
+                        onChanged: (value) {
+                          setState(() {
+                            rememberPassword = value!;
+                          });
+                        },
+                      ),
+                      Text("Remember me"),
+                      Spacer(),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text("Forgot password?"),
+                      ),
+                    ]),
+                    Container(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            if (_formSignInKey.currentState!.validate() &&
+                                rememberPassword) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Processing Data'),
+                                ),
+                              );
+                              Navigator.pushNamed(context, "/main");
+                            } else if (!rememberPassword) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Please remember password'),
+                                ),
+                              );
+                            }
                           },
+                          child: const Text("Sign in")),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
                           child: Container(
-                            child: const Text(
-                              'Home',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24,
-                                  color: Colors.blueAccent),
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            child: const Divider(
+                              thickness: 0.7,
+                              color: Colors.black45,
+                              height: 36,
                             ),
                           ),
                         ),
-                        const RoundedInput(
-                          icon: Icons.mail,
-                          hint: "Email",
+                        const Text("Or"),
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            child: const Divider(
+                              thickness: 0.7,
+                              color: Colors.black45,
+                              height: 36,
+                            ),
+                          ),
                         ),
-                        const RoundedPassWordInput(
-                          hint: "Password",
-                          icon: Icons.lock,
-                        ),
-                        const RoundedButton(title: "LOGIN"),
                       ],
                     ),
-                  ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image.asset(
+                            "assets/logos/google.png",
+                          ),
+                          Image.asset(
+                            "assets/logos/facebook.png",
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
-          ),
-          //Todo: Register Container
-          AnimatedBuilder(
-            builder: (context, child) {
-              if (viewInset == 0 && isLogin) {
-                return buildRegisterContainer();
-              } else if (!isLogin) {
-                return buildRegisterContainer();
-              }
-              return Container();
-            },
-            animation: animationController,
-          ),
-          AnimatedOpacity(
-            opacity: isLogin ? 0.0 : 1.0,
-            duration: animationDuration * 5,
-            child: Visibility(
-              visible: !isLogin,
-              child: RegisterSection(
-                activeStepIndex: _activeStepIndex,
-                onStepContinue: () {
-                  if (_activeStepIndex < 2) {
-                    setState(() {
-                      _activeStepIndex += 1;
-                    });
-                  } else {
-                    if (name.text.isNotEmpty &&
-                        email.text.isNotEmpty &&
-                        pass.text.isNotEmpty &&
-                        address.text.isNotEmpty &&
-                        pincode.text.isNotEmpty) {
-                      print('Submitted');
-                    } else {
-                      print('Please fill in all fields');
-                    }
-                  }
-                },
-                onStepCancel: () {
-                  if (_activeStepIndex > 0) {
-                    setState(() {
-                      _activeStepIndex -= 1;
-                    });
-                  }
-                },
-                onStepTapped: (int index) {
-                  setState(() {
-                    _activeStepIndex = index;
-                  });
-                },
-                nameController: name,
-                emailController: email,
-                passController: pass,
-                addressController: address,
-                pincodeController: pincode,
-              ),
-            ),
-          ),
+          )
         ],
-      ),
-    );
-  }
-
-  Widget buildRegisterContainer() {
-    return Align(
-      alignment: Alignment.bottomLeft,
-      child: Container(
-        width: double.infinity,
-        height: containerSize.value,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(100),
-            topRight: Radius.circular(100),
-          ),
-          color: Theme.of(context).colorScheme.background,
-        ),
-        alignment: Alignment.center,
-        child: GestureDetector(
-          onTap: () {
-            setState(() {
-              isLogin = !isLogin;
-              animationController.forward();
-            });
-          },
-          child: isLogin
-              ? Text(
-                  "Dont't have an account? Sign up",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: 18,
-                  ),
-                )
-              : null,
-        ),
       ),
     );
   }

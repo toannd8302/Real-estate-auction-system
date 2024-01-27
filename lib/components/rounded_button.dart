@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 
-class RoundedButton extends StatelessWidget {
+class RoundedButton extends StatefulWidget {
   const RoundedButton({
-    super.key,
-    required this.title,
-  });
+    Key? key,
+    required this.title, required this.onTap, 
+
+  }) : super(key: key);
 
   final String title;
+  final Function()? onTap;
+  @override
+  State<RoundedButton> createState() => _RoundedButtonState();
+}
 
+class _RoundedButtonState extends State<RoundedButton> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return InkWell(
-      onTap: () {},
+      onTap: widget.onTap,
       borderRadius: BorderRadius.circular(30),
       child: Container(
         width: size.width * 0.8,
@@ -23,7 +29,7 @@ class RoundedButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 20),
         alignment: Alignment.center,
         child: Text(
-          title,
+          widget.title,
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSecondary,
             fontSize: 18,

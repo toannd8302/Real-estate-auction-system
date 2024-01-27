@@ -71,6 +71,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       //Todo: Tạo ra bottom navigation bar tương tác phía dưới màn hình
       bottomNavigationBar: SalomonBottomBar(
+        backgroundColor: Colors.black,
           currentIndex: _currentIndex,
           onTap: (index) {
             setState(() {
