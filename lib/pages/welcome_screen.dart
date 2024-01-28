@@ -50,7 +50,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 alignment: Alignment.bottomRight,
                 child: Row(
                   children: [
-                    Expanded(
+                    const Expanded(
                         child: WelcomeButton(
                       buttonText: "Sign in",
                       onTap: LoginScreen(),
@@ -60,7 +60,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     Expanded(
                         child: WelcomeButton(
                       buttonText: "Sign up",
-                      onTap: SignUpScreen(),
+                      onTap: const SignUpScreen(),
                       color: Colors.white,
                       textColor: lightColorScheme.primary,
                     )),

@@ -59,6 +59,7 @@ class RegisterSection extends StatelessWidget {
                 content: buildConfirmStep(),
               ),
             ],
+
             onStepContinue: onStepContinue as void Function(),
             onStepCancel: onStepCancel as void Function(),
             onStepTapped: onStepTapped as void Function(int),
@@ -67,6 +68,7 @@ class RegisterSection extends StatelessWidget {
               return Row(
                 children: [
                   Expanded(
+                    
                     child: ElevatedButton(
                       onPressed: details.onStepContinue,
                       child: isLastStep
