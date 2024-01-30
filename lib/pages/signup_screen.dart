@@ -15,6 +15,124 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool agreePersonalData = true;
   @override
   Widget build(BuildContext context) {
+    //Local variable describe input decoration
+    var inputDecorationEmail = InputDecoration(
+      label: const Text('Email'),
+      hintText: 'Enter Email',
+      hintStyle: const TextStyle(
+        color: Colors.black26,
+      ),
+      border: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: Colors.black12, // Default border color
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: Colors.black12, // Default border color
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+    var inputDecorationFullName = InputDecoration(
+      label: const Text('Full Name'),
+      hintText: 'Enter Full Name',
+      hintStyle: const TextStyle(
+        color: Colors.black26,
+      ),
+      border: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: Colors.black12, // Default border color
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: Colors.black12, // Default border color
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+    var inputDecorationPassword = InputDecoration(
+      label: const Text('Password'),
+      hintText: 'Enter Password',
+      hintStyle: const TextStyle(
+        color: Colors.black26,
+      ),
+      border: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: Colors.black12, // Default border color
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: Colors.black12, // Default border color
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+    var inputDecorationComfirmPassword = InputDecoration(
+      label: const Text('Comfirm Password'),
+      hintText: 'Enter Password',
+      hintStyle: const TextStyle(
+        color: Colors.black26,
+      ),
+      border: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: Colors.black12, // Default border color
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: Colors.black12, // Default border color
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+    var inputDecorationFirstName = InputDecoration(
+      label: const Text('FirstName'),
+      hintText: 'Enter FirstName',
+      hintStyle: const TextStyle(
+        color: Colors.black26,
+      ),
+      border: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: Colors.black12, // Default border color
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: Colors.black12, // Default border color
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+    var inputDecorationLastName = InputDecoration(
+      label: const Text('LastName'),
+      hintText: 'Enter LastName',
+      hintStyle: const TextStyle(
+        color: Colors.black26,
+      ),
+      border: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: Colors.black12, // Default border color
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: Colors.black12, // Default border color
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+    //datOfBirth
+    //gender
+    //cityzenId
     return CustomScafford(
       child: Column(
         children: [
@@ -62,28 +180,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           }
                           return null;
                         },
-                        decoration: InputDecoration(
-                          label: const Text('Full Name'),
-                          hintText: 'Enter Full Name',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                        decoration: inputDecorationFullName,
                       ),
                       const SizedBox(
-                        height: 25.0,
+                        height: 15.0,
                       ),
                       // email
                       TextFormField(
@@ -93,28 +193,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           }
                           return null;
                         },
-                        decoration: InputDecoration(
-                          label: const Text('Email'),
-                          hintText: 'Enter Email',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                        decoration: inputDecorationEmail,
                       ),
                       const SizedBox(
-                        height: 25.0,
+                        height: 15.0,
                       ),
                       // password
                       TextFormField(
@@ -126,28 +208,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           }
                           return null;
                         },
-                        decoration: InputDecoration(
-                          label: const Text('Password'),
-                          hintText: 'Enter Password',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                        decoration: inputDecorationPassword,
                       ),
                       const SizedBox(
-                        height: 25.0,
+                        height: 15.0,
+                      ),
+                      TextFormField(
+                        obscureText: true,
+                        obscuringCharacter: '*',
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Confirm Password';
+                          }
+                          return null;
+                        },
+                        decoration: inputDecorationComfirmPassword,
+                      ),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter FirstName';
+                          }
+                          return null;
+                        },
+                        decoration: inputDecorationFirstName,
+                      ),
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter LatsName';
+                          }
+                          return null;
+                        },
+                        decoration: inputDecorationLastName,
                       ),
                       // i agree to the processing
                       Row(
