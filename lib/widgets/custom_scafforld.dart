@@ -16,6 +16,7 @@ class CustomScafford extends StatelessWidget {
       ),
       extendBodyBehindAppBar: true,
       body: Stack(
+        
         children: [
           Image.asset(
             'assets/images/bg1.png',
@@ -23,7 +24,8 @@ class CustomScafford extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
           ),
-          SafeArea(child: child),
+          SafeArea(
+            child: child),
         ],
       ),
     );

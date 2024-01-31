@@ -16,57 +16,78 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return CustomScafford(
       child: Column(
         children: [
-          Flexible(
-              flex: 8,
-              child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 40),
-                  child: Center(
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: const TextSpan(
-                        text: 'Real Estate',
-                        style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                        children: [
-                          TextSpan(
-                            text: '\nAuction System',
-                            style: TextStyle(
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        ],
-                      ),
+          Expanded(
+            flex: 8,
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: screenWidth * 0.05,
+                horizontal: screenWidth * 0.1,
+              ),
+              child: Center(
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: 'Real Estate',
+                    style: TextStyle(
+                      fontSize: 0.07 * screenWidth, // Responsive font size
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
-                  ))),
-          Flexible(
-              flex: 1,
-              child: Align(
-                alignment: Alignment.bottomRight,
+                    children: [
+                      TextSpan(
+                        text: '\nAuction System',
+                        style: TextStyle(
+                          fontSize: 0.07 * screenWidth, // Responsive font size
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            left: 0,
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.1,
+                ),
                 child: Row(
                   children: [
-                    const Expanded(
-                        child: WelcomeButton(
-                      buttonText: "Sign in",
-                      onTap: LoginScreen(),
-                      color: Colors.transparent,
-                      textColor: Colors.white,
-                    )),
                     Expanded(
-                        child: WelcomeButton(
-                      buttonText: "Sign up",
-                      onTap: const SignUpScreen(),
-                      color: Colors.white,
-                      textColor: lightColorScheme.primary,
-                    )),
+                      child: WelcomeButton(
+                        buttonText: "Sign in",
+                        onTap: LoginScreen(),
+                        color: Colors.transparent,
+                        textColor: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                        width: 10), // Add some spacing between buttons
+                    Expanded(
+                      child: WelcomeButton(
+                        buttonText: "Sign up",
+                        onTap: SignUpScreen(),
+                        color: Colors.white,
+                        textColor: lightColorScheme.primary,
+                      ),
+                    ),
                   ],
                 ),
-              ))
+              ),
+            ),
+          ),
         ],
       ),
     );

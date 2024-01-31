@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:real_estate_auction_system/core/constants/color_constants.dart';
 import 'package:real_estate_auction_system/pages/main_screen.dart';
+import 'package:real_estate_auction_system/service/api_service.dart';
 import 'package:real_estate_auction_system/widgets/custom_scafforld.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,54 +19,10 @@ class _LoginScreenState extends State<LoginScreen> {
   bool rememberPassword = true;
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  Future<void> loginUser() async {
-    print("Iam in login fuction");
-    final url =
-        Uri.parse('https://swdprojectapi.azurewebsites.net/api/User/login');
-    final body = jsonEncode({
-      'username': usernameController.text,
-      'password': passwordController.text,
-    });
-    print(usernameController.text + "||||" + usernameController.text);
-    try {
-      final response = await http.post(
-        url,
-        headers: {
-          'Content-Type': 'application/json',
-          'accept': 'text/plain',
-        },
-        body: body,
-      );
-      print('Response Body: ${response.body}');
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        final token = data['token'];
-        final userInfo = data['userInfo'];
-
-        // Handle successful login, save token and user info to use in the app
-        print('Login Successful!');
-        print('Token: $token');
-        print('User Info: $userInfo');
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const MainScreen()),
-        );
-      } else if (response.statusCode == 400) {
-        // Handle bad request (e.g., invalid credentials)
-        print('Bad Request: ${response.body}');
-      } else {
-        // Handle other errors
-        print('Error: ${response.statusCode}');
-      }
-    } catch (error) {
-      // Handle network or other errors
-      print('Error: $error');
-    }
-  }
-
+  ApiService apiService = ApiService(httpClient: http.Client());
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return CustomScafford(
       child: Column(
         children: [
@@ -77,7 +34,13 @@ class _LoginScreenState extends State<LoginScreen> {
           Expanded(
             flex: 7,
             child: Container(
-              padding: const EdgeInsets.fromLTRB(25, 50, 25, 20),
+              padding: EdgeInsets.fromLTRB(
+                width * 0.05,
+                width *
+                    0.05, // Adjusted padding from 50 to 5% of the screen width
+                width * 0.05,
+                width * 0.02,
+              ),
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -105,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: InputDecoration(
                         label: const Text("Username"),
                         hintText: "Enter Username",
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                           color: Colors.black26,
                         ),
                         //icon: Icon(Icons.email),
@@ -168,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text("Forgot password?"),
                       ),
                     ]),
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                           onPressed: () {
@@ -179,7 +142,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                   content: Text('Processing Data'),
                                 ),
                               );
-                              loginUser();
+                              Future<bool> checkLogin = apiService.loginUser(
+                                  usernameController.text,
+                                  passwordController.text);
+                              checkLogin.then((value) {
+                                if (value) {
+                                  Navigator.pushNamed(context, "/main");
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          'Login Failed. Check your username and password'),
+                                    ),
+                                  );
+                                }
+                              });
+
                               // Navigator.pushNamed(context, "/main");
                               // } else if (!rememberPassword) {
                               //   ScaffoldMessenger.of(context).showSnackBar(

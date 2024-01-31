@@ -42,9 +42,12 @@ dependencies:
   flutter_screenutil: ^5.0.2
   line_awesome_flutter: ^2.0.0
   http: ^0.13.3
+  colorize: ^3.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mockito: ^5.4.4
+  colorize: ^3.0.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
